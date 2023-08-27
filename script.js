@@ -1,90 +1,85 @@
+// Get DOM elements
 const fullName = document.getElementById("fullname");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const confirmPass = document.getElementById("confirmpassword");
-let signupBtn = document.getElementById("signup");
-let userData ={};
+const signupBtn = document.getElementById("signup");
+const msg = document.getElementById("message");
+const timer = document.getElementById("timer");
+
+// Initialize user data and token
+let userData = {};
 const generatedToken = generateToken();
-function isAuthenticated(){
+
+// Check if the user is authenticated
+function isAuthenticated() {
   return localStorage.getItem("accessToken") !== null;
 }
-function signUp(){
-  const msg = document.getElementById("message");
-  let name = fullName.value;
-  let e = email.value;
-  let pass = password.value;
-  let cp = confirmPass.value;
-  if(name === '' || e === '' || pass === '' || cp === '')
-  {
-      msg.innerHTML = `
-        <p class="e-msg">Error : All the fields are mandatory </p>
-      `;
 
-      return;
+// Sign up function
+function signUp() {
+  const name = fullName.value;
+  const e = email.value;
+  const pass = password.value;
+  const cp = confirmPass.value;
+
+  if (name === '' || e === '' || pass === '' || cp === '') {
+    msg.innerHTML = `<p class="e-msg">Error: All fields are mandatory</p>`;
+    return;
+  } else if (pass !== cp) {
+    msg.innerHTML = `<p class="e-msg">Error: Passwords do not match</p>`;
+    return;
+  } else if (pass.length < 6 || cp.length < 6) {
+    msg.innerHTML = `<p class="e-msg">Error: Password must be at least 6 characters long</p>`;
+    return;
   }
-  else if(pass !== cp)
-  {
-      msg.innerHTML = `
-        <p class="e-msg">Error: Password Not Matching, Please check!</p>
-      `;
-      return;
-  }
-  else if(pass.length < 6 || cp.length < 6)
-  {
-      msg.innerHTML = `
-        <p class="e-msg">Error: Password must be 6 or more character long!</p>
-      `;
-  }
-  else{
-    msg.innerHTML = `
-      <p class="s-msg">Successfully Signed Up!</p>
-    `;
 
-      fullName.value='';
-      email.value='';
-      password.value='';
-      confirmPass.value = '';
-    userData = {
-      name: name,
-      email: e,
-      password: pass,
-      accessToken: generatedToken,
-    }
-    localStorage.setItem('userData', JSON.stringify(userData));
+  msg.innerHTML = `<p class="s-msg">Successfully Signed Up!</p>`;
+  fullName.value = '';
+  email.value = '';
+  password.value = '';
+  confirmPass.value = '';
 
-    let timer = document.getElementById("timer");
-    timer.innerHTML = `
-     <p class="time">You will be redirecting in 2 seconds ...</p>
-   `;
-   
-   setTimeout(() => {
-       window.location.href = 'profile.html';
-     }, 2000);
-    }
+  userData = {
+    name: name,
+    email: e,
+    password: pass,
+    accessToken: generatedToken,
+  };
 
+  localStorage.setItem('userData', JSON.stringify(userData));
+
+  timer.innerHTML = `<p class="time">You will be redirected in 2 seconds...</p>`;
+
+  setTimeout(() => {
+    window.location.href = 'profile.html';
+  }, 2000);
 }
-function Profile(){
-  if (isAuthenticated()){
+
+// Populate profile information
+function Profile() {
+  if (isAuthenticated()) {
     window.location.href = 'profile.html';
   }
 
   const userData = JSON.parse(localStorage.getItem('userData'));
-  let name = document.getElementById("username");
-  let em = document.getElementById("useremail");
-  let p = document.getElementById("userpass");
+  const name = document.getElementById("username");
+  const em = document.getElementById("useremail");
+  const p = document.getElementById("userpass");
 
-   name.innerHTML =`${userData.name}`;
-   em.innerHTML =`${userData.email}`;
-   p.innerHTML =`${userData.password}`;
+  name.innerHTML = userData.name;
+  em.innerHTML = userData.email;
+  p.innerHTML = userData.password;
+}
 
-
-}  
-
-function logout(){
+// Logout function
+function logout() {
   localStorage.removeItem('userData');
   window.location.href = 'index.html';
 }
-function generateToken(length=10){
+
+// Generate random token
+function generateToken(length = 10) {
   const tokens = new Uint8Array(length);
   crypto.getRandomValues(tokens);
 
