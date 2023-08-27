@@ -1,73 +1,83 @@
-input{
+input {
     width: 100%;
     border: none;
     border-bottom: 2px solid white;
 }
-label{
+
+label {
     margin-top: 20px;
     font-size: 20px;
 }
-input:focus{
+
+input:focus {
     outline: none;
 }
-button:focus{
+
+button:focus {
     outline: none;
     border: none;
 }
-.hide{
-    display:none;
+
+.hide {
+    display: none;
 }
-.e-msg{
-    color:red;
+
+.e-msg {
+    color: red;
     margin-top: 40px;
 }
-.s-msg{
-    color:green;
+
+.s-msg {
+    color: green;
     margin-top: 40px;
 }
-.time{
-    color:yellow;
+
+.time {
+    color: yellow;
     font-size: 20px;
 }
-span{
-    color:blueviolet;
+
+span {
+    color: blueviolet;
     text-shadow: -1px 0px white;
 }
-#signup{
+
+#signup {
     margin-left: -10px;
     margin-top: 30px;
-    border:1px white solid;
-}
-#signup:hover{
- border: 1px rgb(0, 255, 55) solid;
+    border: 1px white solid;
 }
 
-#logout:hover{
+#signup:hover {
+    border: 1px rgb(0, 255, 55) solid;
+}
+
+#logout:hover {
     border: 1px red solid;
 }
-.hori{
+
+.hori {
     border: 2px solid white;
     width: 100px;
-    color:rgb(245, 239, 239);
+    color: rgb(245, 239, 239);
     margin-top: -35px;
 }
-.userf{
+
+.userf {
     font-size: 20px;
 }
 
-@media screen and (max-width:768px) {
-    
-    .userf{
+@media screen and (max-width: 768px) {
+    .userf {
         font-size: 18px;
     }
 
-    #signup{
+    #signup {
         margin-top: 10px;
     }
 
-    .time{
-        color:yellow;
+    .time {
+        color: yellow;
         font-size: 18px;
     }
-
 }
